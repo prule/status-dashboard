@@ -1,0 +1,36 @@
+{
+    "error": "safs",
+    "title": "Status",
+    "cards": [
+        {
+            "id": 1,
+            "name": "One",
+            "spinner": true,
+            "progress": 10,
+            "mode": "pulse",
+            "color": "orange",
+            "message": "xyz"
+        },
+        {
+            "id": 2,
+            "name": "Two",
+            "spinner": false,
+            "color": "green",
+            "message": "xyz"
+        },
+        {
+            "id": 3,
+            "name": "Two",
+            "spinner": false,
+            "color": "green",
+            "message": "xyz"
+        },
+        {
+            "id": 4,
+            "name": "Two",
+            "spinner": false,
+            "color": "green",
+            "message": "xyz"
+        }
+    ]
+}

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My page</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width"/>
+    <script src="https://unpkg.com/react@latest/umd/react.development.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/react-dom@latest/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@material-ui/core@latest/umd/material-ui.development.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/babel-standalone@latest/babel.min.js" crossorigin="anonymous"></script>
+    <!-- Fonts to support Material Design -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"/>
+    <!-- Icons to support Material Design -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+    <style>
+        .pulse {
+            margin: 100px;
+            display: block;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #cca92c;
+            cursor: pointer;
+            box-shadow: 0 0 0 rgba(204, 169, 44, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        .pulse:hover {
+            animation: none;
+        }
+
+        @-webkit-keyframes pulse {
+            0% {
+                -webkit-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0.4);
+            }
+            70% {
+                -webkit-box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
+            }
+            100% {
+                -webkit-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                -moz-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0.4);
+                box-shadow: 0 0 0 0 rgba(204, 169, 44, 0.4);
+            }
+            70% {
+                -moz-box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
+                box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
+            }
+            100% {
+                -moz-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
+                box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+  const {
+    colors,
+    CssBaseline,
+    ThemeProvider,
+    Typography,
+    Container,
+    makeStyles,
+    createMuiTheme,
+    Box,
+    SvgIcon,
+    Link,
+    AppBar,
+    Grid,
+    Toolbar,
+    CameraIcon,
+    Button,
+    Card,
+    CardMedia,
+    CardContent,
+    CardActions,
+    LinearProgress,
+    CircularProgress,
+    Alert
+  } = MaterialUI;
+
+  // Create a theme instance.
+  const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: '#556cd6',
+      },
+      secondary: {
+        main: '#19857b',
+      },
+      error: {
+        main: colors.red.A400,
+      },
+      background: {
+        default: '#fff',
+      },
+    },
+  });
+
+  const useStyles = makeStyles(theme => ({
+    root: {
+      margin: theme.spacing(6, 0, 3),
+    },
+    lightBulb: {
+      verticalAlign: 'middle',
+      marginRight: theme.spacing(1),
+    },
+    icon: {
+      marginRight: theme.spacing(2),
+    },
+    heroContent: {
+      backgroundColor: theme.palette.background.paper,
+      padding: theme.spacing(8, 0, 6),
+    },
+    heroButtons: {
+      marginTop: theme.spacing(4),
+    },
+    cardGrid: {
+      paddingTop: theme.spacing(8),
+      paddingBottom: theme.spacing(8),
+    },
+    card: {
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    cardMedia: {
+      paddingTop: '56.25%', // 16:9
+    },
+    cardContent: {
+      flexGrow: 1,
+    },
+    footer: {
+      backgroundColor: theme.palette.background.paper,
+      padding: theme.spacing(6),
+    },
+  }));
+
+  function Display() {
+    const classes = useStyles();
+    const [data, setData] = React.useState({cards: []});
+    const [loaded, setLoaded] = React.useState(false);
+
+    let period = 30000;
+
+    React.useEffect(() => {
+      let interval = setInterval(() => {
+        load();
+      }, loaded ? period : 50);
+
+      return () => {
+        clearInterval(interval);
+      }
+    });
+
+    function load() {
+      fetch("test-data.json")
+        .then(res => res.json())
+        .then(
+          (result) => {
+            setData(result);
+            setLoaded(true);
+          },
+          (error) => {
+            console.log(error);
+            setData({error: 'Data could not be loaded'});
+          }
+        );
+    }
+
+    return (
+      <React.Fragment>
+        <CssBaseline/>
+        <main>
+          {/* Hero unit */}
+          <div className={classes.heroContent}>
+            <Container maxWidth="sm">
+              <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+                {data.title}
+              </Typography>
+            </Container>
+          </div>
+          {/* End hero unit */}
+
+          <div style={{textAlign: 'center'}}>
+            {data.error &&
+            <div severity="error">{data.error}</div>
+            }
+
+            {data.cards &&
+            <Container className={classes.cardGrid}>
+              <Grid container spacing={4}>
+                {data.cards.map(card => (
+                  <Grid item key={card.id} xs={12} sm={6} md={3}>
+                    <Card className={classes.card} style={{backgroundColor: card.color, textAlign: 'center'}}>
+                      <CardContent className={classes.cardContent}>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          {card.name}
+                        </Typography>
+                        {card.spinner &&
+                        <CircularProgress style={{margin: '1em'}}/>
+                        }
+                        {card.progress &&
+                        <LinearProgress variant="determinate" value={card.progress} style={{margin: '1em'}}/>
+                        }
+                      </CardContent>
+                      <Typography gutterBottom variant="caption">
+                        {card.message}
+                      </Typography>
+                    </Card>
+                  </Grid>
+                ))}
+              </Grid>
+            </Container>
+            }
+          </div>
+        </main>
+      </React.Fragment>
+    );
+  }
+
+  function App() {
+    return (
+      <Display/>
+    );
+  }
+
+  ReactDOM.render(
+    <ThemeProvider theme={theme}>
+      {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+      <CssBaseline/>
+      <App/>
+    </ThemeProvider>,
+    document.querySelector('#root'),
+  );
+</script>
+</body>
+</html>
+
+
