@@ -39,7 +39,7 @@
 <script type="text/babel">
 
   // change this url to match your application data endpoint.
-  const dataUrl = "test-data.json";
+  const dataUrl = "https://raw.githubusercontent.com/prule/status-dashboard/master/test-data.json";
 
   // change this value to change the refresh polling interval (millis)
   const period = 30000;
@@ -132,12 +132,16 @@
     const [loaded, setLoaded] = React.useState(false);
 
     React.useEffect(() => {
-      let interval = setInterval(() => {
-        load();
-      }, loaded ? period : 50);
+      if (loaded && !data.error) {
+        let interval = setInterval(() => {
+          load();
+        }, period);
 
-      return () => {
-        clearInterval(interval);
+        return () => {
+          clearInterval(interval);
+        }
+      } else if (!data.error) {
+        load();
       }
     });
 
