@@ -5,7 +5,7 @@ This is a very simple react app which can be used to display the state (eg succe
 
 It is implemented as a single HTML page so its easy to drop into an existing application - simply implement an http endpoint that returns the required data payload (see [test-data.json]).
 
-![screenshot1.png]
+![screenshot](screenshot1.png)
 
 The data payload is structured as shown below:
 
@@ -51,7 +51,7 @@ Each card should contain:
 * color - Background color of card
 * message - A message to show at the bottom of the card (could be a timestamp or other indicator of data age)
 
-![sample screenshot](screenshot1-annotated.png)
+![annotated screenshot pointing out the various data attributes](screenshot1-annotated.png)
 
 # What can it be used for?
 
