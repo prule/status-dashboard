@@ -5,14 +5,15 @@ This is a very simple react app which can be used to display the state (eg succe
 
 It is implemented as a single HTML page so its easy to drop into an existing application - simply implement an http endpoint that returns the required data payload (see [test-data.json]).
 
-![screenshot](screenshot1.png)
+![screenshot](screenshot2.png)
 
 The data payload is structured as shown below:
 
 ```
 {
     "error": null,
-    "title": "Status",
+    "heading": "Example",
+    "title": "Sample Dashboard",
     "cards": [
         {
             "id": 1,
