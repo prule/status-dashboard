@@ -13,53 +13,36 @@
     <!-- Icons to support Material Design -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
     <style>
-        .pulse {
-            margin: 100px;
-            display: block;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background: #cca92c;
-            cursor: pointer;
-            box-shadow: 0 0 0 rgba(204, 169, 44, 0.4);
-            animation: pulse 2s infinite;
-        }
-
-        .pulse:hover {
-            animation: none;
-        }
-
-        @-webkit-keyframes pulse {
-            0% {
-                -webkit-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0.4);
-            }
-            70% {
-                -webkit-box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
-            }
-            100% {
-                -webkit-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
-            }
-        }
-
         @keyframes pulse {
             0% {
-                -moz-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0.4);
-                box-shadow: 0 0 0 0 rgba(204, 169, 44, 0.4);
-            }
-            70% {
-                -moz-box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
-                box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
+                background-color: black;
             }
             100% {
-                -moz-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
-                box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
+                background-color: orangered;
             }
+        }
+
+        .pulsing {
+            animation-name: pulse;
+            animation-duration: 2s;
+            animation-timing-function: ease-out;
+            animation-delay: 0s;
+            animation-direction: alternate;
+            animation-iteration-count: infinite;
+            animation-fill-mode: none;
+            animation-play-state: running;
         }
     </style>
 </head>
 <body>
 <div id="root"></div>
 <script type="text/babel">
+
+  // change this url to match your application data endpoint.
+  const dataUrl = "test-data.json";
+
+  // change this value to change the refresh polling interval (millis)
+  const period = 30000;
 
   const {
     colors,
@@ -148,8 +131,6 @@
     const [data, setData] = React.useState({cards: []});
     const [loaded, setLoaded] = React.useState(false);
 
-    let period = 30000;
-
     React.useEffect(() => {
       let interval = setInterval(() => {
         load();
@@ -161,7 +142,7 @@
     });
 
     function load() {
-      fetch("test-data.json")
+      fetch(dataUrl)
         .then(res => res.json())
         .then(
           (result) => {
@@ -199,7 +180,7 @@
               <Grid container spacing={4}>
                 {data.cards.map(card => (
                   <Grid item key={card.id} xs={12} sm={6} md={3}>
-                    <Card className={classes.card} style={{backgroundColor: card.color, textAlign: 'center'}}>
+                    <Card className={classes.card + ' ' + card.mode} style={{backgroundColor: card.color, textAlign: 'center'}}>
                       <CardContent className={classes.cardContent}>
                         <Typography gutterBottom variant="h5" component="h2">
                           {card.name}

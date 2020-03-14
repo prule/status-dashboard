@@ -1,5 +1,5 @@
 {
-    "error": "safs",
+    "error": null,
     "title": "Status",
     "cards": [
         {
@@ -7,7 +7,7 @@
             "name": "One",
             "spinner": true,
             "progress": 10,
-            "mode": "pulse",
+            "mode": "pulsing",
             "color": "orange",
             "message": "xyz"
         },
@@ -20,14 +20,14 @@
         },
         {
             "id": 3,
-            "name": "Two",
+            "name": "Three",
             "spinner": false,
             "color": "green",
             "message": "xyz"
         },
         {
             "id": 4,
-            "name": "Two",
+            "name": "Four",
             "spinner": false,
             "color": "green",
             "message": "xyz"
