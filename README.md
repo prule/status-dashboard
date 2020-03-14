@@ -51,7 +51,7 @@ Each card should contain:
 * color - Background color of card
 * message - A message to show at the bottom of the card (could be a timestamp or other indicator of data age)
 
-!(screenshot1-annotated.png)
+![sample screenshot](screenshot1-annotated.png)
 
 # What can it be used for?
 
