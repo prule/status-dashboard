@@ -9,28 +9,28 @@
             "spinner": true,
             "progress": 10,
             "mode": "pulsing",
-            "color": "orange",
+            "color": "#ff5722",
             "message": "xyz"
         },
         {
             "id": 2,
             "name": "Two",
             "spinner": false,
-            "color": "green",
+            "color": "#4caf50",
             "message": "xyz"
         },
         {
             "id": 3,
             "name": "Three",
             "spinner": false,
-            "color": "green",
+            "color": "#4caf50",
             "message": "xyz"
         },
         {
             "id": 4,
             "name": "Four",
             "spinner": false,
-            "color": "green",
+            "color": "#f44336",
             "message": "xyz"
         }
     ]
